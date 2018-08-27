@@ -72,7 +72,6 @@
         this.$router.push('/add');
 
       }
-
     }
   }
 </script>
