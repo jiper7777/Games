@@ -1,0 +1,68 @@
+{
+  "posts": [
+    {
+      "gameName": "Gra o tron",
+      "date": "12/05/2018",
+      "players": [
+        "Adam",
+        "Jacek",
+        "Paweł"
+      ],
+      "results": [
+        "222",
+        "234",
+        "122"
+      ],
+      "id": 1
+    },
+    {
+      "gameName": "Carcasonne",
+      "date": "12/01/2015",
+      "players": [
+        "Abc",
+        "xyz",
+        "Qwerty"
+      ],
+      "results": [
+        "666",
+        "444",
+        "22"
+      ],
+      "id": 2
+    },
+    {
+      "gameName": "5 Tribes",
+      "date": "12/01/2015",
+      "players": [
+        "Abc",
+        "Obb",
+        "Qwerty"
+      ],
+      "results": [
+        "666",
+        "444",
+        "22"
+      ],
+      "id": 3
+    },
+    {
+      "gameName": "Gladiators",
+      "date": "15/06/2012",
+      "players": [
+        "Abc",
+        "Obb",
+        "Qwerty"
+      ],
+      "results": [
+        "666",
+        "444",
+        "22"
+      ],
+      "id": 4
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

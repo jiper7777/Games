@@ -1,18 +1,20 @@
 <template>
-  <div>
-    <button class="btn btn-success" @click="goToAdd">Add</button>
-
+  <div class="container" style="margin-top:20px;">
     <tr>
-      <th>Date</th>
+      <th style="width: 50px;">Index</th>
+      <th>Date / Game</th>
       <th>Players</th>
       <th>Results</th>
-      <th>Edit</th>
+      <th style="width: 120px;">Edit</th>
     </tr>
 
     <table
       v-for="(element, i) in games"
     >
       <tr>
+        <td style="width: 50px;">
+          {{i+1}}
+        </td>
         <td>
           {{element.gameName}}
           <hr>
@@ -30,17 +32,19 @@
             <li v-for="result in games[i].results">{{result}}</li>
           </ul>
         </td>
-        <td>
-          <button class="remove-button btn btn-danger">Remove</button>
+        <td style="width: 120px;">
+          <button class="remove-button btn btn-danger" @click="removeRecord(element)">Remove</button>
         </td>
       </tr>
     </table>
+
+    <button class="btn btn-secondary" style="margin-top: 20px; width: 250px;" @click="goToAdd">Add new game --></button>
   </div>
 
 </template>
 
 <script>
-  import {eventBus} from '../main';
+  import axios from 'axios';
 
   export default {
     data() {
@@ -48,37 +52,50 @@
         name: '',
         games: [
           {
-            gameName: 'Gra1',
-            date: '20/02/2018',
-            players: ['A', 'B', 'C', 'D'],
-            results: [0, 0, 0, 0]
-          },
-          {
-            gameName: 'Gra2',
-            date: '22/02/2018',
-            players: ['X', 'Y', 'C', 'D'],
-            results: [1, 1, 1, 1]
-          },
-          {
-            gameName: 'Gra3',
-            date: '20/02/2018',
-            players: ['AA', 'BB', 'CC', 'DD'],
-            results: [2, 2, 2, 2]
+            gameName: '',
+            date: '',
+            players: [''],
+            results: ['']
           }]
+        ,
+        changedRecords: []
       }
     },
     methods: {
       goToAdd() {
         this.$router.push('/add');
+      },
+      removeRecord(element) {
+        console.log(element.id);
+        axios.delete('http://localhost:3000/posts/' + element.id);
 
+        const timer = setTimeout(() => {
+            axios.get('http://localhost:3000/posts')
+              .then((response) => {
+                this.games = response.data;
+                clearTimeout(timer);
+              })
+              .catch((error) => console.log(error));
+          }
+          , 300);
       }
+    },
+    beforeCreate() {
+      axios.get('http://localhost:3000/posts')
+        .then(
+          (response) => {
+            this.games = response.data;
+          }
+        )
+        .catch(error => (console.log(error)));
     }
   }
+
 </script>
 
 <style>
   th, td {
-    width: 250px;
+    width: 200px;
     text-align: center;
     border: solid black 1px;
   }
@@ -93,9 +110,8 @@
 
   .remove-button {
     margin-left: 10px;
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-items: center;*/
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 </style>
 
